@@ -1,10 +1,6 @@
 import {
-  Calendar,
-  Filter,
   RotateCcw,
   Search,
-  Tag,
-  Wallet,
   X,
 } from 'lucide-react';
 import type { TransactionFilter } from '@/domain/filters';

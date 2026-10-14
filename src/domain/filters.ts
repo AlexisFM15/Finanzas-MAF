@@ -2,14 +2,14 @@ import { normalizeText } from './categories';
 import type { Cents, ID, ISODate, Transaction, TransactionType } from './models';
 
 export interface TransactionFilter {
-  search?: string;
-  types?: readonly TransactionType[];
-  accountIds?: readonly ID[];
-  categoryIds?: readonly (ID | null)[];
-  dateFrom?: ISODate;
-  dateTo?: ISODate;
-  minAmount?: Cents;
-  maxAmount?: Cents;
+  search?: string | undefined;
+  types?: readonly TransactionType[] | undefined;
+  accountIds?: readonly ID[] | undefined;
+  categoryIds?: readonly (ID | null)[] | undefined;
+  dateFrom?: ISODate | undefined;
+  dateTo?: ISODate | undefined;
+  minAmount?: Cents | undefined;
+  maxAmount?: Cents | undefined;
 }
 
 export interface TransactionSort {

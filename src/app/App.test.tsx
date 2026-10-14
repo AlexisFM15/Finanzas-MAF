@@ -78,6 +78,6 @@ describe('App & Router Shell (Google Stitch UI)', () => {
 
     fireEvent.click(transactionsLinks[0]!);
 
-    expect(await screen.findByText('Módulo de Transacciones')).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: 'Transacciones' })).toBeInTheDocument();
   });
 });

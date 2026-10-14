@@ -10,9 +10,9 @@ import type { Account, Category, Transaction } from '@/domain/models';
 
 export interface TransactionItemProps {
   transaction: Transaction;
-  account?: Account;
-  toAccount?: Account;
-  category?: Category;
+  account?: Account | undefined;
+  toAccount?: Account | undefined;
+  category?: Category | undefined;
   onEdit: (tx: Transaction) => void;
   onDelete: (tx: Transaction) => void;
 }
