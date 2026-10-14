@@ -19,3 +19,4 @@ playwright/.cache/
 .idea
 .DS_Store
 *.log
+.superpowers/
