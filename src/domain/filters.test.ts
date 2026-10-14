@@ -93,7 +93,14 @@ describe('sortTransactions', () => {
   it('sorts by date descending by default with createdAt tie-breaker', () => {
     const sorted = sortTransactions([t1, t2, t3]);
     expect(sorted.map((t) => t.id)).toEqual(['t3', 't2', 't1']);
+
+    // Same date and same createdAt -> tie-break on id
+    const t4 = makeTransaction({ id: 'a', date: '2026-02-05', createdAt: '2026-02-05T10:00:00Z' });
+    const t5 = makeTransaction({ id: 'b', date: '2026-02-05', createdAt: '2026-02-05T10:00:00Z' });
+    expect(sortTransactions([t4, t5], { by: 'date', direction: 'desc' }).map((t) => t.id)).toEqual(['b', 'a']);
+    expect(sortTransactions([t4, t5], { by: 'date', direction: 'asc' }).map((t) => t.id)).toEqual(['a', 'b']);
   });
+
 
   it('sorts by amount ascending and descending', () => {
     const asc = sortTransactions([t1, t2, t3], { by: 'amount', direction: 'asc' });
@@ -101,7 +108,13 @@ describe('sortTransactions', () => {
 
     const desc = sortTransactions([t1, t2, t3], { by: 'amount', direction: 'desc' });
     expect(desc.map((t) => t.id)).toEqual(['t1', 't3', 't2']);
+
+    // Equal amounts: tie-break by createdAt
+    const txA = makeTransaction({ id: 'txA', amount: 300, createdAt: '2026-02-01T10:00:00Z' });
+    const txB = makeTransaction({ id: 'txB', amount: 300, createdAt: '2026-02-01T11:00:00Z' });
+    expect(sortTransactions([txA, txB], { by: 'amount', direction: 'asc' }).map((t) => t.id)).toEqual(['txA', 'txB']);
   });
+
 
   it('does not mutate the source array', () => {
     const original = [t1, t2];

@@ -24,7 +24,10 @@ describe('suggestCategory', () => {
 
     const suggestion = suggestCategory('CAFÉ Central', 'expense', [restaurant]);
     expect(suggestion?.name).toBe('Restaurantes');
+    expect(suggestCategory('', 'expense', [restaurant])).toBeNull();
+    expect(suggestCategory('   ', 'expense', [restaurant])).toBeNull();
   });
+
 
   it('does not match partial substrings (prevents false positives)', () => {
     const bar = makeCategory({

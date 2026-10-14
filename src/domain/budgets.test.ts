@@ -76,7 +76,13 @@ describe('budgetProgress', () => {
     const progress = budgetProgress(budget, [], '2026-03');
     expect(progress.ratio).toBe(0);
     expect(progress.status).toBe('safe');
+
+    const txs = [makeTransaction({ categoryId: 'cat-1', type: 'expense', amount: 500, date: '2026-03-01' })];
+    const overProgress = budgetProgress(budget, txs, '2026-03');
+    expect(overProgress.ratio).toBe(1);
+    expect(overProgress.status).toBe('over');
   });
+
 });
 
 describe('budgetsProgress', () => {
@@ -131,7 +137,11 @@ describe('goalProgress', () => {
     const progress = goalProgress(goalNegative, balances);
     expect(progress.current).toBe(0);
     expect(progress.ratio).toBe(0);
+
+    const goalMissing = makeGoal({ targetAmount: 50000, linkedAccountId: 'acc-missing' });
+    expect(goalProgress(goalMissing, new Map()).current).toBe(0);
   });
+
 
   it('handles targetAmount 0 as immediately reached', () => {
     const goal = makeGoal({ targetAmount: 0 });
