@@ -40,6 +40,7 @@ export default defineConfig({
     setupFiles: ['./src/test/setup.ts'],
     include: ['src/**/*.test.{ts,tsx}'],
     css: false,
+    testTimeout: 15000,
     coverage: {
       provider: 'v8',
       include: ['src/domain/**/*.ts'],
