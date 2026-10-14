@@ -1,50 +1,170 @@
 @import '@fontsource-variable/inter';
+@import '@fontsource/manrope/400.css';
+@import '@fontsource/manrope/500.css';
+@import '@fontsource/manrope/600.css';
+@import '@fontsource/manrope/700.css';
+@import '@fontsource/space-grotesk/500.css';
+@import '@fontsource/space-grotesk/600.css';
+@import '@fontsource/space-grotesk/700.css';
 @import 'tailwindcss';
 
-/* Tema oscuro controlado por clase `.dark` en <html> (ThemeProvider en Fase 3). */
+/* Tema oscuro controlado por clase `.dark` en <html> */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* ── Tokens semánticos (cambian con el tema) ─────────────────────────── */
-:root {
-  --background: #fafafa;
-  --surface: #ffffff;
-  --foreground: #09090b;
-  --muted: #52525b;
-  --border: #e4e4e7;
-}
-
-.dark {
-  --background: #09090b; /* zinc-950 — coincide con theme_color del manifest */
-  --surface: #18181b;
-  --foreground: #fafafa;
-  --muted: #a1a1aa;
-  --border: #27272a;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-surface: var(--surface);
-  --color-foreground: var(--foreground);
-  --color-muted: var(--muted);
-  --color-border: var(--border);
-}
-
-/* ── Tokens de marca y finanzas ──────────────────────────────────────── */
 @theme {
-  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Manrope', 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Manrope', sans-serif;
+  --font-headline: 'Space Grotesk', sans-serif;
 
-  --color-brand-300: oklch(0.85 0.13 165);
-  --color-brand-400: oklch(0.77 0.15 163);
-  --color-brand-500: oklch(0.7 0.15 162);
-  --color-brand-600: oklch(0.6 0.13 163);
-  --color-accent-400: oklch(0.79 0.13 212);
+  --font-body-sm: 'Manrope', sans-serif;
+  --font-body-md: 'Manrope', sans-serif;
+  --font-body-lg: 'Manrope', sans-serif;
+  --font-label-sm: 'Manrope', sans-serif;
+  --font-label-md: 'Manrope', sans-serif;
+  --font-headline-sm: 'Space Grotesk', sans-serif;
+  --font-headline-md: 'Space Grotesk', sans-serif;
+  --font-headline-lg: 'Space Grotesk', sans-serif;
+  --font-headline-lg-mobile: 'Space Grotesk', sans-serif;
+  --font-display-hero: 'Space Grotesk', sans-serif;
+  --font-display-hero-mobile: 'Space Grotesk', sans-serif;
+  --font-numeral-md: 'Space Grotesk', sans-serif;
+  --font-numeral-lg: 'Space Grotesk', sans-serif;
 
-  --color-income: oklch(0.72 0.17 155);
-  --color-expense: oklch(0.66 0.21 18);
-  --color-transfer: oklch(0.7 0.14 250);
-  --color-budget-safe: oklch(0.72 0.17 155);
-  --color-budget-warning: oklch(0.8 0.16 80);
-  --color-budget-over: oklch(0.64 0.22 25);
+  --text-label-sm: 11px;
+  --text-label-sm--line-height: 14px;
+  --text-label-sm--letter-spacing: 0.06em;
+  --text-label-sm--font-weight: 600;
+
+  --text-label-md: 12px;
+  --text-label-md--line-height: 16px;
+  --text-label-md--letter-spacing: 0.04em;
+  --text-label-md--font-weight: 600;
+
+  --text-body-sm: 13px;
+  --text-body-sm--line-height: 18px;
+  --text-body-sm--letter-spacing: 0.01em;
+
+  --text-body-md: 14px;
+  --text-body-md--line-height: 22px;
+
+  --text-body-lg: 16px;
+  --text-body-lg--line-height: 26px;
+  --text-body-lg--letter-spacing: -0.005em;
+
+  --text-headline-sm: 18px;
+  --text-headline-sm--line-height: 26px;
+  --text-headline-sm--font-weight: 500;
+
+  --text-headline-md: 22px;
+  --text-headline-md--line-height: 30px;
+  --text-headline-md--letter-spacing: -0.01em;
+  --text-headline-md--font-weight: 500;
+
+  --text-headline-lg: 32px;
+  --text-headline-lg--line-height: 40px;
+  --text-headline-lg--letter-spacing: -0.02em;
+  --text-headline-lg--font-weight: 600;
+
+  --text-headline-lg-mobile: 26px;
+  --text-headline-lg-mobile--line-height: 34px;
+  --text-headline-lg-mobile--letter-spacing: -0.015em;
+  --text-headline-lg-mobile--font-weight: 600;
+
+  --text-display-hero: 48px;
+  --text-display-hero--line-height: 56px;
+  --text-display-hero--letter-spacing: -0.03em;
+  --text-display-hero--font-weight: 600;
+
+  --text-display-hero-mobile: 36px;
+  --text-display-hero-mobile--line-height: 44px;
+  --text-display-hero-mobile--letter-spacing: -0.025em;
+  --text-display-hero-mobile--font-weight: 600;
+
+  --text-numeral-md: 18px;
+  --text-numeral-md--line-height: 24px;
+  --text-numeral-md--letter-spacing: -0.01em;
+  --text-numeral-md--font-weight: 600;
+
+  --text-numeral-lg: 28px;
+  --text-numeral-lg--line-height: 34px;
+  --text-numeral-lg--letter-spacing: -0.02em;
+  --text-numeral-lg--font-weight: 600;
+
+  /* Colores Google Stitch / Material 3 Dark */
+  --color-surface: #0a1517;
+  --color-background: #0a1517;
+  --color-surface-dim: #0a1517;
+  --color-surface-bright: #303b3d;
+  --color-surface-variant: #2c3739;
+  --color-surface-container-lowest: #051012;
+  --color-surface-container-low: #121d1f;
+  --color-surface-container: #162123;
+  --color-surface-container-high: #212c2e;
+  --color-surface-container-highest: #2c3739;
+
+  --color-primary: #4edea3;
+  --color-primary-fixed: #6ffbbe;
+  --color-primary-fixed-dim: #4edea3;
+  --color-primary-container: #10b981;
+  --color-on-primary: #003824;
+  --color-on-primary-fixed: #002113;
+  --color-on-primary-fixed-variant: #005236;
+  --color-on-primary-container: #00422b;
+  --color-inverse-primary: #006c49;
+
+  --color-secondary: #4cd7f6;
+  --color-secondary-fixed: #acedff;
+  --color-secondary-fixed-dim: #4cd7f6;
+  --color-secondary-container: #03b5d3;
+  --color-on-secondary: #003640;
+  --color-on-secondary-fixed: #001f26;
+  --color-on-secondary-fixed-variant: #004e5c;
+  --color-on-secondary-container: #00424e;
+
+  --color-tertiary: #d0bcff;
+  --color-tertiary-fixed: #e9ddff;
+  --color-tertiary-fixed-dim: #d0bcff;
+  --color-tertiary-container: #b090ff;
+  --color-on-tertiary: #3c0091;
+  --color-on-tertiary-fixed: #23005c;
+  --color-on-tertiary-fixed-variant: #5516be;
+  --color-on-tertiary-container: #4600a7;
+
+  --color-error: #ffb4ab;
+  --color-error-container: #93000a;
+  --color-on-error: #690005;
+  --color-on-error-container: #ffdad6;
+
+  --color-on-surface: #d9e5e7;
+  --color-on-surface-variant: #bbcabf;
+  --color-on-background: #d9e5e7;
+  --color-inverse-surface: #d9e5e7;
+  --color-inverse-on-surface: #273234;
+
+  --color-outline: #86948a;
+  --color-outline-variant: #3c4a42;
+  --color-surface-tint: #4edea3;
+
+  /* Spacing */
+  --spacing-gutter: 1rem;
+  --spacing-gutter-tablet: 1.25rem;
+  --spacing-gutter-desktop: 1.5rem;
+  --spacing-space-xs: 0.25rem;
+  --spacing-space-sm: 0.5rem;
+  --spacing-space-md: 1rem;
+  --spacing-space-lg: 1.5rem;
+  --spacing-space-xl: 2rem;
+  --spacing-margin: 1rem;
+  --spacing-margin-tablet: 1.5rem;
+  --spacing-margin-desktop: 2.5rem;
+
+  /* Domain financial tokens */
+  --color-income: #4edea3;
+  --color-expense: #ffb4ab;
+  --color-transfer: #4cd7f6;
+  --color-budget-safe: #4edea3;
+  --color-budget-warning: #eab308;
+  --color-budget-over: #ffb4ab;
 
   --animate-fade-up: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 
@@ -61,16 +181,21 @@
 }
 
 @layer base {
-  html {
-    color-scheme: light;
-    -webkit-tap-highlight-color: transparent;
-  }
-  html.dark {
-    color-scheme: dark;
+  html,
+  body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
   }
   body {
-    @apply bg-background font-sans text-foreground antialiased;
-    font-feature-settings: 'tnum' 1; /* cifras tabulares para importes */
+    overscroll-behavior-y: none;
+    font-feature-settings: 'tnum' 1;
+  }
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .pt-safe {
+    padding-top: env(safe-area-inset-top, 0px);
   }
 }
 
