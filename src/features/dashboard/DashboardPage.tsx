@@ -155,7 +155,6 @@ const BAR_CHART_MONTHS = [
 
 export function DashboardPage() {
   const [activeFilter, setActiveFilter] = useState<'all' | 'income' | 'expense'>('all');
-  const [activeNav, setActiveNav] = useState('dashboard');
   const [actionNotice, setActionNotice] = useState<string | null>(null);
 
   const filteredTransactions = INITIAL_TRANSACTIONS.filter((tx) => {
@@ -169,54 +168,7 @@ export function DashboardPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-surface font-body-md text-on-surface antialiased">
-      {/* HEADER FIJO SUPERIOR */}
-      <header
-        id="app-header"
-        className="fixed top-0 z-50 w-full bg-surface/80 pt-safe shadow-[0_1px_8px_rgba(0,0,0,0.04)] backdrop-blur-xl"
-      >
-        <div className="mx-auto flex h-16 max-w-lg items-center justify-between px-gutter">
-          <div className="flex items-center gap-space-sm">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
-              <span className="material-symbols-outlined text-[20px] text-primary">
-                account_balance_wallet
-              </span>
-            </div>
-            <div className="flex flex-col">
-              <h1 className="font-headline-sm text-headline-sm leading-tight tracking-tight text-on-surface">
-                BPE
-              </h1>
-              <span className="font-label-sm text-label-sm leading-none text-on-surface-variant">
-                Dashboard
-              </span>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-space-xs">
-            <button
-              id="notifications-button"
-              type="button"
-              aria-label="Notificaciones"
-              onClick={() => triggerAction('Notificaciones')}
-              className="flex h-11 w-11 items-center justify-center rounded-full text-on-surface-variant transition-colors hover:text-primary focus:outline-none"
-            >
-              <span className="material-symbols-outlined text-[22px]">notifications</span>
-            </button>
-            <button
-              id="profile-button"
-              type="button"
-              aria-label="Perfil de usuario"
-              onClick={() => triggerAction('Perfil')}
-              className="flex h-11 w-11 items-center justify-center rounded-full p-space-xs focus:outline-none"
-            >
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-surface-container-high text-primary font-semibold text-xs border border-primary/20">
-                JD
-              </div>
-            </button>
-          </div>
-        </div>
-      </header>
-
+    <div className="flex flex-col w-full">
       {/* NOTIFICACIÓN TOAST INLINE */}
       {actionNotice && (
         <div
@@ -228,11 +180,10 @@ export function DashboardPage() {
       )}
 
       {/* CONTENIDO PRINCIPAL */}
-      <main className="relative flex flex-grow flex-col bg-surface pt-16 pb-20">
-        <div className="mx-auto flex w-full max-w-lg flex-col space-y-space-lg px-gutter pb-space-xl">
-          {/* TARJETA HERO WEALTH OVERVIEW */}
-          <section
-            id="hero-wealth-card"
+      <div className="mx-auto flex w-full max-w-lg flex-col space-y-space-lg px-gutter pb-space-xl">
+        {/* TARJETA HERO WEALTH OVERVIEW */}
+        <section
+          id="hero-wealth-card"
             className="relative overflow-hidden rounded-xl bg-surface-container-low p-space-md shadow-xl"
             aria-label="Resumen de patrimonio neto"
           >
@@ -871,48 +822,6 @@ export function DashboardPage() {
             </div>
           </section>
         </div>
-      </main>
-
-      {/* NAVEGACIÓN INFERIOR FIJA */}
-      <nav
-        id="bottom-navigation"
-        aria-label="Navegación principal"
-        className="fixed bottom-0 z-50 w-full bg-surface/85 pb-safe shadow-[0_-1px_12px_rgba(0,0,0,0.2)] backdrop-blur-xl"
-      >
-        <div className="mx-auto flex h-16 max-w-lg items-center justify-around px-space-xs">
-          {[
-            { id: 'dashboard', label: 'Dashboard', icon: 'account_balance_wallet' },
-            { id: 'analytics', label: 'Analytics', icon: 'query_stats' },
-            { id: 'market', label: 'Market', icon: 'candlestick_chart' },
-            { id: 'cards', label: 'Cards', icon: 'credit_card' },
-            { id: 'profile', label: 'Profile', icon: 'person' },
-          ].map((tab) => {
-            const isActive = activeNav === tab.id;
-            return (
-              <button
-                key={tab.id}
-                id={`nav-${tab.id}`}
-                type="button"
-                onClick={() => {
-                  setActiveNav(tab.id);
-                  triggerAction(`Pestaña: ${tab.label}`);
-                }}
-                aria-current={isActive ? 'page' : undefined}
-                className={`flex min-h-[44px] min-w-[56px] flex-col items-center justify-center gap-space-xs transition-colors focus:outline-none ${
-                  isActive
-                    ? 'font-semibold text-primary'
-                    : 'text-on-surface-variant hover:text-on-surface'
-                }`}
-              >
-                <span className="material-symbols-outlined text-[24px]">
-                  {tab.icon}
-                </span>
-                <span className="font-label-sm text-label-sm">{tab.label}</span>
-              </button>
-            );
-          })}
-        </div>
-      </nav>
-    </div>
+      </div>
   );
 }

@@ -1,13 +1,17 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { App } from './App';
 
-describe('App & Dashboard (Google Stitch UI)', () => {
-  it('renders the header with BPE branding and Dashboard subtitle', () => {
+describe('App & Router Shell (Google Stitch UI)', () => {
+  beforeEach(() => {
+    localStorage.clear();
+    document.documentElement.className = '';
+  });
+
+  it('renders the topbar with BPE branding and Dashboard subtitle', () => {
     render(<App />);
-    const heading = screen.getByRole('heading', { level: 1 });
-    expect(heading).toHaveTextContent('BPE');
-    expect(screen.getAllByText('Dashboard').length).toBeGreaterThanOrEqual(2);
+    expect(screen.getByText('BPE')).toBeInTheDocument();
+    expect(screen.getAllByText('Dashboard').length).toBeGreaterThanOrEqual(1);
   });
 
   it('renders the hero net worth balance and currency', () => {
@@ -56,12 +60,24 @@ describe('App & Dashboard (Google Stitch UI)', () => {
     expect(screen.getByText('Apple Retail Store')).toBeInTheDocument();
   });
 
-  it('renders the bottom navigation tabs', () => {
+  it('renders the navigation links for all main modules', () => {
     render(<App />);
-    const nav = screen.getByRole('navigation', { name: /navegación principal/i });
-    expect(nav).toBeInTheDocument();
-    for (const label of ['Dashboard', 'Analytics', 'Market', 'Cards', 'Profile']) {
-      expect(screen.getByRole('button', { name: new RegExp(label, 'i') })).toBeInTheDocument();
+    const mobileNav = screen.getByRole('navigation', { name: /navegación móvil/i });
+    expect(mobileNav).toBeInTheDocument();
+
+    for (const label of ['Dashboard', 'Transacciones', 'Presupuestos', 'Cuentas']) {
+      expect(screen.getAllByText(label).length).toBeGreaterThanOrEqual(1);
     }
+  });
+
+  it('navigates to Transacciones when clicking the navigation link', async () => {
+    render(<App />);
+
+    const transactionsLinks = screen.getAllByRole('link', { name: /transacciones/i });
+    expect(transactionsLinks.length).toBeGreaterThanOrEqual(1);
+
+    fireEvent.click(transactionsLinks[0]!);
+
+    expect(await screen.findByText('Módulo de Transacciones')).toBeInTheDocument();
   });
 });

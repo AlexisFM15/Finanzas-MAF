@@ -1,9 +1,19 @@
-import { DashboardPage } from '@/features/dashboard/DashboardPage';
+import { RouterProvider } from 'react-router';
+import { PWAProvider } from './providers/PWAProvider';
+import { ThemeProvider } from './providers/ThemeProvider';
+import { router } from './router';
 
 /**
  * Shell principal de la PWA.
- * Renderiza el Dashboard de Google Stitch adaptado a React.
+ * Ensambla los proveedores de tema (ThemeProvider), controles PWA (PWAProvider)
+ * y el enrutador de React Router con el layout Stitch.
  */
 export function App() {
-  return <DashboardPage />;
+  return (
+    <ThemeProvider defaultTheme="dark">
+      <PWAProvider>
+        <RouterProvider router={router} />
+      </PWAProvider>
+    </ThemeProvider>
+  );
 }
