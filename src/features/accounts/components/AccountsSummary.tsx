@@ -1,4 +1,4 @@
-import { ArrowDownRight, ArrowUpRight, Coins, DollarSign, TrendingUp } from 'lucide-react';
+import { ArrowDownRight, ArrowUpRight, Coins, TrendingUp } from 'lucide-react';
 import { formatMoney } from '@/domain/money';
 import type { Account, Cents, CurrencyCode, ID } from '@/domain/models';
 

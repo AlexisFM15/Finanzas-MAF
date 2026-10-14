@@ -1,4 +1,4 @@
-import { CreditCard, DollarSign, Landmark, Wallet, X } from 'lucide-react';
+import { Landmark, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import type { CreateAccountDTO, UpdateAccountDTO } from '@/data/repository';
 import { parseMoney } from '@/domain/money';
@@ -151,10 +151,10 @@ export function AccountFormModal({
           type,
           currency,
           openingBalance: parsedOpeningBalance,
-          institution: institution.trim() || undefined,
           color,
-          creditLimit: parsedCreditLimit,
-          loan: parsedLoan,
+          ...(institution.trim() ? { institution: institution.trim() } : {}),
+          ...(parsedCreditLimit !== undefined ? { creditLimit: parsedCreditLimit } : {}),
+          ...(parsedLoan !== undefined ? { loan: parsedLoan } : {}),
         };
         await onSubmit(updateDTO);
       } else {
@@ -163,11 +163,11 @@ export function AccountFormModal({
           type,
           currency,
           openingBalance: parsedOpeningBalance,
-          institution: institution.trim() || undefined,
           color,
           archived: false,
-          creditLimit: parsedCreditLimit,
-          loan: parsedLoan,
+          ...(institution.trim() ? { institution: institution.trim() } : {}),
+          ...(parsedCreditLimit !== undefined ? { creditLimit: parsedCreditLimit } : {}),
+          ...(parsedLoan !== undefined ? { loan: parsedLoan } : {}),
         };
         await onSubmit(createDTO);
       }
