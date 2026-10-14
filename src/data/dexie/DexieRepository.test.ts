@@ -1,5 +1,5 @@
 import 'fake-indexeddb/auto';
-import { runRepositoryContractTests } from '../repository.contract.test';
+import { runRepositoryContractTests } from '../repositoryContract';
 import { createDexieRepository } from './DexieRepository';
 
 let dbCounter = 0;
