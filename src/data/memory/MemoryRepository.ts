@@ -28,6 +28,8 @@ import type {
   UpdateTransactionDTO,
 } from '../repository';
 
+import { validateBackupData } from '../backupValidation';
+
 function clone<T>(obj: T): T {
   return JSON.parse(JSON.stringify(obj)) as T;
 }
@@ -324,6 +326,8 @@ export class MemoryRepository implements AppRepository {
   }
 
   async importJSON(data: BackupData, mode: 'replace' | 'merge' = 'replace'): Promise<void> {
+    validateBackupData(data);
+
     if (mode === 'replace') {
       await this.clearAll();
     }

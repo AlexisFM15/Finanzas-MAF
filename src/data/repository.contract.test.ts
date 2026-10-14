@@ -382,6 +382,29 @@ export function runRepositoryContractTests(
         const afterMerge = await repo.accounts.getAll();
         expect(afterMerge).toHaveLength(2);
 
+        // Rechazo de respaldo inválido (versión incorrecta)
+        const invalidVersion = { ...backup, version: -1 };
+        await expect(repo.importJSON(invalidVersion)).rejects.toThrow(/inválido/i);
+
+        // Rechazo de respaldo inválido (importe float en transacción)
+        const invalidFloatTx = {
+          ...backup,
+          transactions: [
+            {
+              id: 'tx-float',
+              type: 'expense' as const,
+              accountId: acc.id,
+              amount: 12.34, // FLOAT PROHIBIDO
+              date: '2026-03-20',
+              description: 'Float',
+              categoryId: null,
+              createdAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString(),
+            },
+          ],
+        };
+        await expect(repo.importJSON(invalidFloatTx)).rejects.toThrow(/inválido/i);
+
         if (cleanup) await cleanup(repo);
       });
     });

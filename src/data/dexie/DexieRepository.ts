@@ -27,6 +27,7 @@ import type {
   UpdateGoalDTO,
   UpdateTransactionDTO,
 } from '../repository';
+import { validateBackupData } from '../backupValidation';
 import { FinancialDB } from './db';
 
 export class DexieRepository implements AppRepository {
@@ -343,6 +344,8 @@ export class DexieRepository implements AppRepository {
   }
 
   async importJSON(data: BackupData, mode: 'replace' | 'merge' = 'replace'): Promise<void> {
+    validateBackupData(data);
+
     await this.db.transaction(
       'rw',
       [
