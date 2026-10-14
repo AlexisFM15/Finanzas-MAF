@@ -79,8 +79,40 @@ Financial/
     ├── components/ui/        # Componentes base
     ├── lib/                  # Utilidades globales (cn, formatters)
     └── styles/index.css      # Tailwind v4 + Tokens de diseño
+```
 
-    4. Configuración PWA & Estrategia OfflineService Worker (vite-plugin-pwa + Workbox):Precaching: HTML, JS, CSS, fuentes e iconos Lucide para carga instantánea offline.Caché de Assets: Estrategia StaleWhileRevalidate para recursos estáticos.Persistencia de Datos: Lectura y escritura en IndexedDB (Dexie) localmente sin requerir red.Web App Manifest:Name: Finanzas PersonalesShort Name: FinanzasDisplay: standaloneBackground Color: #09090b (Zinc-950 dark)Theme Color: #09090bPWA Shell UI:Banner de actualización disponible ("Nueva versión disponible — Actualizar").Indicador de estado Offline/Online en la barra superior (Topbar).Prompt de instalación PWA personalizado ("Instalar app").5. Modelos de Datos (src/domain/models.ts)TypeScriptexport type ID = string;               // crypto.randomUUID()
+---
+
+## 4. Configuración PWA & Estrategia Offline
+
+### Service Worker (vite-plugin-pwa + Workbox)
+
+- **Precaching:** HTML, JS, CSS, fuentes e iconos Lucide para carga instantánea offline.
+- **Caché de Assets:** Estrategia `StaleWhileRevalidate` para recursos estáticos.
+- **Persistencia de Datos:** Lectura y escritura en IndexedDB (Dexie) localmente sin requerir red.
+
+### Web App Manifest
+
+| Campo | Valor |
+|---|---|
+| Name | Finanzas Personales |
+| Short Name | Finanzas |
+| Display | `standalone` |
+| Background Color | `#09090b` (Zinc-950 dark) |
+| Theme Color | `#09090b` |
+
+### PWA Shell UI
+
+- Banner de actualización disponible ("Nueva versión disponible — Actualizar").
+- Indicador de estado Offline/Online en la barra superior (Topbar).
+- Prompt de instalación PWA personalizado ("Instalar app").
+
+---
+
+## 5. Modelos de Datos (`src/domain/models.ts`)
+
+```typescript
+export type ID = string;               // crypto.randomUUID()
 export type Cents = number;            // Entero en céntimos
 export type ISODate = string;          // 'YYYY-MM-DD'
 export type YearMonth = string;        // 'YYYY-MM'
@@ -164,4 +196,20 @@ export interface Goal {
   manualAmount?: Cents;
   deadline?: ISODate;
 }
-6. Plan por FasesFaseContenidoValidación / Tests0. Scaffolding & PWA SetupSetup de Vite + React 19 + TS, Tailwind v4, Vitest, @vite-pwa/plugin, Web App Manifest e iconos PWA.Smoke test de build + validación de Service Worker.1. Núcleo de Dominio (TDD)Lógica pura en domain/: money, balances, monthly, categories, budgets, amortization, filters.100% Cobertura de tests unitarios (TDD).2. Persistencia OfflineInterfaz Repository, Dexie.js (IndexedDB), Repositorio en memoria para tests y seed demo.Tests de integración IndexedDB con fake-indexeddb.3. UI Shell & PWA ControlsAppLayout, ThemeProvider, PWA Install Prompt, Indicador de estado Offline/Online.Tests de render de componentes shell.4. CuentasVistas de tarjetas por tipo, CRUD, amortización para préstamos.Tests de integración e interacciones.5. TransaccionesTabla, filtros avanzados, modal con autocategorización.Tests de flujos de creación y filtrado.6. DashboardResumen financiero, gráficos de Recharts, skeletons offline.Tests de render con datos del seed.7. Presupuestos y MetasCálculo de progress/umbrales, CRUD de metas y presupuestos.Tests de lógica de presupuestos.8. Pulido, PWA & E2EAuditoría Lighthouse (PWA Score 100%), verificación de instalación offline y e2e.Tests E2E con Playwright.
+```
+
+---
+
+## 6. Plan por Fases
+
+| Fase | Contenido | Validación / Tests |
+|---|---|---|
+| **0. Scaffolding & PWA Setup** | Setup de Vite + React 19 + TS, Tailwind v4, Vitest, @vite-pwa/plugin, Web App Manifest e iconos PWA. | Smoke test de build + validación de Service Worker. |
+| **1. Núcleo de Dominio (TDD)** | Lógica pura en `domain/`: money, balances, monthly, categories, budgets, amortization, filters. | 100% Cobertura de tests unitarios (TDD). |
+| **2. Persistencia Offline** | Interfaz Repository, Dexie.js (IndexedDB), Repositorio en memoria para tests y seed demo. | Tests de integración IndexedDB con fake-indexeddb. |
+| **3. UI Shell & PWA Controls** | AppLayout, ThemeProvider, PWA Install Prompt, Indicador de estado Offline/Online. | Tests de render de componentes shell. |
+| **4. Cuentas** | Vistas de tarjetas por tipo, CRUD, amortización para préstamos. | Tests de integración e interacciones. |
+| **5. Transacciones** | Tabla, filtros avanzados, modal con autocategorización. | Tests de flujos de creación y filtrado. |
+| **6. Dashboard** | Resumen financiero, gráficos de Recharts, skeletons offline. | Tests de render con datos del seed. |
+| **7. Presupuestos y Metas** | Cálculo de progress/umbrales, CRUD de metas y presupuestos. | Tests de lógica de presupuestos. |
+| **8. Pulido, PWA & E2E** | Auditoría Lighthouse (PWA Score 100%), verificación de instalación offline y e2e. | Tests E2E con Playwright. |
