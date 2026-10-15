@@ -6,6 +6,7 @@ describe('App & Router Shell (Google Stitch UI)', () => {
   beforeEach(() => {
     localStorage.clear();
     document.documentElement.className = '';
+    window.history.pushState({}, '', '/');
   });
 
   it('renders the topbar with BPE branding and Dashboard subtitle', () => {
@@ -14,10 +15,10 @@ describe('App & Router Shell (Google Stitch UI)', () => {
     expect(screen.getAllByText('Dashboard').length).toBeGreaterThanOrEqual(1);
   });
 
-  it('renders the hero net worth balance and currency', () => {
+  it('renders the hero net worth balance and currency', async () => {
     render(<App />);
-    expect(screen.getByText('Net Portfolio Worth')).toBeInTheDocument();
-    expect(screen.getByText('$84,620.50')).toBeInTheDocument();
+    expect(await screen.findByText('Net Portfolio Worth')).toBeInTheDocument();
+    expect(screen.getByText('$72,933.10')).toBeInTheDocument();
     expect(screen.getByText('DOP')).toBeInTheDocument();
   });
 

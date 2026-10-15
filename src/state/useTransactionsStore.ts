@@ -35,10 +35,12 @@ export interface TransactionsState {
   getFilteredTransactions: () => Transaction[];
 }
 
+const initialSeed = getDemoSeedData();
+
 export const useTransactionsStore = create<TransactionsState>((set, get) => ({
-  transactions: [],
-  accounts: [],
-  categories: [],
+  transactions: initialSeed.transactions,
+  accounts: initialSeed.accounts,
+  categories: initialSeed.categories,
   isLoading: false,
   error: null,
   filter: {},

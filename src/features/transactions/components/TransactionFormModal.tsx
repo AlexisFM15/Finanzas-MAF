@@ -22,7 +22,7 @@ export interface TransactionFormModalProps {
   onClose: () => void;
   accounts: readonly Account[];
   categories: readonly Category[];
-  transactionToEdit?: Transaction | null;
+  transactionToEdit?: Transaction | null | undefined;
   onSubmit: (dto: CreateTransactionDTO | UpdateTransactionDTO) => Promise<void>;
 }
 

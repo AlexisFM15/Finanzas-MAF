@@ -14,19 +14,6 @@ export function HeroNetWorthCard({
   transactions,
   isLoading,
 }: HeroNetWorthCardProps) {
-  if (isLoading) {
-    return (
-      <div
-        data-testid="hero-net-worth-skeleton"
-        className="relative overflow-hidden rounded-2xl border border-surface-variant/30 bg-surface-container-low p-space-lg shadow-xl animate-pulse"
-      >
-        <div className="h-4 w-32 rounded bg-surface-variant/40 mb-space-md" />
-        <div className="h-10 w-48 rounded bg-surface-variant/50 mb-space-sm" />
-        <div className="h-4 w-24 rounded bg-surface-variant/30" />
-      </div>
-    );
-  }
-
   const netWorthMap = netWorthByCurrency(accounts, transactions);
   const mainCurrency: CurrencyCode = 'DOP';
   const dopTotal = netWorthMap.get(mainCurrency) ?? 0;
@@ -71,23 +58,33 @@ export function HeroNetWorthCard({
         </div>
 
         {/* Main Balance Display */}
-        <div className="flex flex-col">
-          <div className="flex items-baseline gap-space-xs">
-            <span className="font-headline-lg-mobile sm:font-headline-lg text-headline-lg-mobile sm:text-headline-lg font-bold tracking-tight text-on-surface">
-              {`$${(dopTotal / 100).toLocaleString('en-US', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })}`}
-            </span>
-            <span className="font-label-md text-label-md font-medium text-on-surface-variant">
-              {mainCurrency}
-            </span>
+        {isLoading ? (
+          <div
+            data-testid="hero-net-worth-skeleton"
+            className="flex flex-col space-y-2 py-2 animate-pulse"
+          >
+            <div className="h-9 w-48 rounded bg-surface-variant/50" />
+            <div className="h-4 w-32 rounded bg-surface-variant/30" />
           </div>
-          <p className="mt-1 font-body-sm text-body-sm text-on-surface-variant">
-            Calculado en tiempo real a través de {accounts.length}{' '}
-            {accounts.length === 1 ? 'cuenta activa' : 'cuentas activas'}
-          </p>
-        </div>
+        ) : (
+          <div className="flex flex-col">
+            <div className="flex items-baseline gap-space-xs">
+              <span className="font-headline-lg-mobile sm:font-headline-lg text-headline-lg-mobile sm:text-headline-lg font-bold tracking-tight text-on-surface">
+                {`$${(dopTotal / 100).toLocaleString('en-US', {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}`}
+              </span>
+              <span className="font-label-md text-label-md font-medium text-on-surface-variant">
+                {mainCurrency}
+              </span>
+            </div>
+            <p className="mt-1 font-body-sm text-body-sm text-on-surface-variant">
+              Calculado en tiempo real a través de {accounts.length}{' '}
+              {accounts.length === 1 ? 'cuenta activa' : 'cuentas activas'}
+            </p>
+          </div>
+        )}
 
         {/* Multi-currency breakdown pills if existing */}
         {otherCurrencies.length > 0 && (

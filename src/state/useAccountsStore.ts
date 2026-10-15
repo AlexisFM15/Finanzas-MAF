@@ -18,9 +18,11 @@ export interface AccountsState {
   getBalances: () => ReadonlyMap<ID, Cents>;
 }
 
+const initialSeed = getDemoSeedData();
+
 export const useAccountsStore = create<AccountsState>((set, get) => ({
-  accounts: [],
-  transactions: [],
+  accounts: initialSeed.accounts,
+  transactions: initialSeed.transactions,
   isLoading: false,
   error: null,
 
