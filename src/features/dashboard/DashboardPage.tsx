@@ -6,13 +6,11 @@ import { CategoryExpenseDonutChart } from './components/CategoryExpenseDonutChar
 import { RecentTransactionsWidget } from './components/RecentTransactionsWidget';
 import { TransactionFormModal } from '../transactions/components/TransactionFormModal';
 import type { AppRepository, CreateTransactionDTO } from '@/data/repository';
-import type { TransactionType } from '@/domain/models';
 import { useAccountsStore } from '@/state/useAccountsStore';
 import { useTransactionsStore } from '@/state/useTransactionsStore';
 import {
   Tag,
   Sparkles,
-  ExternalLink,
   Laptop,
   Headphones,
   CheckCircle2,
@@ -69,7 +67,6 @@ export function DashboardPage({ repo }: DashboardPageProps) {
   } = useTransactionsStore();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [defaultTxType, setDefaultTxType] = useState<TransactionType>('expense');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   useEffect(() => {
@@ -82,8 +79,7 @@ export function DashboardPage({ repo }: DashboardPageProps) {
     setTimeout(() => setToastMessage(null), 3000);
   };
 
-  const handleOpenModal = (type: TransactionType) => {
-    setDefaultTxType(type);
+  const handleOpenModal = () => {
     setIsModalOpen(true);
   };
 
@@ -120,9 +116,9 @@ export function DashboardPage({ repo }: DashboardPageProps) {
         {/* 2. Quick Actions */}
         <div className="rounded-2xl border border-surface-variant/40 bg-surface-container-low p-space-sm sm:p-space-md shadow-sm">
           <QuickActionsBar
-            onDeposit={() => handleOpenModal('income')}
-            onTransfer={() => handleOpenModal('transfer')}
-            onExpense={() => handleOpenModal('expense')}
+            onDeposit={() => handleOpenModal()}
+            onTransfer={() => handleOpenModal()}
+            onExpense={() => handleOpenModal()}
             onScanBill={() =>
               showToast('Función OCR de escaneo de facturas disponible próximamente')
             }

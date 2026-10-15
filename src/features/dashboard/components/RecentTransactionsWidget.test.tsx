@@ -37,6 +37,7 @@ describe('RecentTransactionsWidget', () => {
       amount: 385000,
       date: '2026-04-22',
       description: 'Stripe Payout',
+      categoryId: null,
       createdAt: '2026-04-22T00:00:00.000Z',
       updatedAt: '2026-04-22T00:00:00.000Z',
     },

@@ -6,7 +6,7 @@ import {
   ArrowUpRight,
   ArrowRight,
 } from 'lucide-react';
-import type { Account, Category, Transaction, TransactionType } from '@/domain/models';
+import type { Account, Category, Transaction } from '@/domain/models';
 
 export interface RecentTransactionsWidgetProps {
   transactions: readonly Transaction[];
