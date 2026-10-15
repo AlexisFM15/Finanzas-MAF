@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import { GoalCard } from './GoalCard';
-import type { Account, Goal } from '@/domain/models';
+import type { Account } from '@/domain/models';
 import type { GoalProgress } from '@/domain/budgets';
 
 describe('GoalCard', () => {

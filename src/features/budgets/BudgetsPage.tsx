@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { AppRepository, CreateBudgetDTO, CreateGoalDTO, UpdateBudgetDTO, UpdateGoalDTO } from '@/data/repository';
 import type { Budget, Goal } from '@/domain/models';
 import { useBudgetsStore } from '@/state/useBudgetsStore';
@@ -21,7 +21,6 @@ type DeletionTarget =
 export function BudgetsPage({ repo }: BudgetsPageProps) {
   const {
     budgets,
-    goals,
     categories,
     accounts,
     selectedMonth,

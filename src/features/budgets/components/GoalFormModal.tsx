@@ -35,7 +35,7 @@ export const GoalFormModal: React.FC<GoalFormModalProps> = ({
       setLinkedAccountId(goalToEdit.linkedAccountId ?? '');
       setDeadline(goalToEdit.deadline ?? '');
       setManualCurrentStr(
-        goalToEdit.currentAmount ? (goalToEdit.currentAmount / 100).toFixed(2) : '',
+        goalToEdit.manualAmount ? (goalToEdit.manualAmount / 100).toFixed(2) : '',
       );
       setError(null);
     } else {
@@ -104,13 +104,13 @@ function sanitizeMoneyInput(input: string): string {
         targetAmount: number;
         linkedAccountId?: string | undefined;
         deadline?: string | undefined;
-        currentAmount?: number | undefined;
+        manualAmount?: number | undefined;
       } = {
         name: trimmedName,
         targetAmount: parsedTarget,
         ...(linkedAccountId ? { linkedAccountId } : {}),
         ...(deadline ? { deadline } : {}),
-        ...(parsedManualCurrent !== undefined ? { currentAmount: parsedManualCurrent } : {}),
+        ...(parsedManualCurrent !== undefined ? { manualAmount: parsedManualCurrent } : {}),
       };
 
       if (isEditing && goalToEdit) {
@@ -119,7 +119,7 @@ function sanitizeMoneyInput(input: string): string {
           targetAmount: baseDto.targetAmount,
           ...(baseDto.linkedAccountId ? { linkedAccountId: baseDto.linkedAccountId } : {}),
           ...(baseDto.deadline ? { deadline: baseDto.deadline } : {}),
-          ...(baseDto.currentAmount !== undefined ? { currentAmount: baseDto.currentAmount } : {}),
+          ...(baseDto.manualAmount !== undefined ? { manualAmount: baseDto.manualAmount } : {}),
         };
         await onSubmit(updateDto);
       } else {
@@ -128,7 +128,7 @@ function sanitizeMoneyInput(input: string): string {
           targetAmount: baseDto.targetAmount,
           ...(baseDto.linkedAccountId ? { linkedAccountId: baseDto.linkedAccountId } : {}),
           ...(baseDto.deadline ? { deadline: baseDto.deadline } : {}),
-          ...(baseDto.currentAmount !== undefined ? { currentAmount: baseDto.currentAmount } : {}),
+          ...(baseDto.manualAmount !== undefined ? { manualAmount: baseDto.manualAmount } : {}),
         };
         await onSubmit(createDto);
       }
