@@ -54,6 +54,20 @@ export const BudgetFormModal: React.FC<BudgetFormModalProps> = ({
 
   if (!isOpen) return null;
 
+function sanitizeMoneyInput(input: string): string {
+  const trimmed = input.trim();
+  if (trimmed.includes(',') && trimmed.includes('.')) {
+    const lastComma = trimmed.lastIndexOf(',');
+    const lastDot = trimmed.lastIndexOf('.');
+    if (lastComma > lastDot) {
+      return trimmed.replace(/\./g, '');
+    } else {
+      return trimmed.replace(/,/g, '');
+    }
+  }
+  return trimmed;
+}
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
@@ -71,7 +85,7 @@ export const BudgetFormModal: React.FC<BudgetFormModalProps> = ({
 
     let parsedLimit = 0;
     try {
-      parsedLimit = parseMoney(limitStr, 'DOP');
+      parsedLimit = parseMoney(sanitizeMoneyInput(limitStr), 'DOP');
     } catch {
       setError('Ingresa un monto válido.');
       return;
